@@ -1,6 +1,7 @@
 package ro.ctrln.classes;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Star {
 
@@ -23,6 +24,7 @@ public class Star {
         this.satellites = satellites;
         this.mass = mass;
     }
+
 
     public String getStarDescription() {
         return starDescription;
@@ -60,20 +62,38 @@ public class Star {
         this.smallPlanet /*variabila de instanta*/ = smallPlanet; //parametrul metodei
     }
 
-    public SmallPlanet getSmallPlanet(){
-        return this.smallPlanet; //variabila de instanta
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Star star = (Star) o;
+        return this.diameter == star.diameter &&
+                this.satellites == star.satellites &&
+                this.starDescription.equals(star.starDescription) &&
+                this.mass.equals(star.mass) &&
+                this.smallPlanet.equals(star.smallPlanet);
     }
-    public String computeSmallPlanetLocation(SmallPlanet smallPlanet, int location) {
-        String planetLocation = this.starDescription + smallPlanet.getPlanetName() + location; //variabila locala
-        return "";
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(starDescription, diameter, satellites, mass, smallPlanet);
+    }
+
+    @Override
+    public String toString() {
+        return "Star{" +
+                "starDescription='" + starDescription + '\'' +
+                ", diameter=" + diameter +
+                ", satellites=" + satellites +
+                ", mass=" + mass +
+                ", smallPlanet=" + smallPlanet +
+                '}';
+    }
+
+    public SmallPlanet getSmallPlanet() {
+        return this.smallPlanet; //variabila de instanta}
+
+
     }
 }
-
-    class SmallPlanet {
-    private String planetName;
-
-        public String getPlanetName() {
-            return this.planetName;
-        }
-    }
